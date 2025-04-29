@@ -2,6 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 
 import doctoresRouter from './src/routes/doctoresRoute.js';
+import passwordRecoveryRouter from './src/routes/passwordRecoveryRoutes.js';
 
 const app = express();
 
@@ -12,5 +13,6 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/doctores", doctoresRouter);
+app.use("/api/passwordRecovery", passwordRecoveryRouter)
 
 export {app};
