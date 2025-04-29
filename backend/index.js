@@ -1,11 +1,11 @@
-import { app } from "./app";
+import { app } from "./app.js";
 import { config } from "./src/config.js";
-import { database } from "./database.js";
+import "./database.js";
 
 async function main() {
     const PORT = config.server.PORT;
     app.listen(PORT);
-    console.log(`Servidor conectado`);
+    console.log(`Backend prendido`);
 }
 
 main().catch((err) => {
