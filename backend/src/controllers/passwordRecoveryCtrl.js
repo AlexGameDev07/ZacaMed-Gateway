@@ -41,7 +41,12 @@ passwordRecoveryCtrl.requestCode = async (req, res) => {
         );
 
         // Configurar cookie y enviar respuesta
-        res.cookie("tokenRecoveryCode", token, { maxAge: COOKIE_MAX_AGE, httpOnly: true });
+        res.cookie("tokenRecoveryCode", token, {
+            maxAge: COOKIE_MAX_AGE, // Tiempo de vida de la cookie
+            httpOnly: true,         // Solo accesible desde el servidor
+            secure: false,          // Cambia a true si usas HTTPS
+            sameSite: 'lax',        // Permitir cookies entre sitios (ajusta según sea necesario)
+        });
         res.status(200).json({ message: 'Verification code sent' });
 
         // Enviar correo electrónico
@@ -118,6 +123,8 @@ passwordRecoveryCtrl.newPassword = async (req, res) => {
     try {
         const token = req.cookies.tokenRecoveryCode;
 
+        console.log('Token recibido:', token); // Log para depuración
+
         if (!token) {
             return res.status(401).json({ message: 'No token provided' });
         }
@@ -133,9 +140,8 @@ passwordRecoveryCtrl.newPassword = async (req, res) => {
         // Hashear la nueva contraseña
         const hashedPassword = await bcryptjs.hash(password, 10);
 
-        // Actualizar la contraseña en la base de datos según el tipo de usuario
+        // Actualizar la contraseña en la base de datos
         await doctoresMdl.updateOne({ email: decoded.email }, { password: hashedPassword });
-        
 
         // Eliminar la cookie y enviar respuesta
         res.clearCookie("tokenRecoveryCode");

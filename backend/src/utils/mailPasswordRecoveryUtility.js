@@ -23,6 +23,7 @@ const transporter = nodemailer.createTransport({
  * @returns {Promise} Información del email enviado
  * @throws {Error} Si hay un error en el envío
  */
+
 const sendEmail = async (to, subject, text, html) => {
     // Validar parámetros
     if (!to || !subject || (!text && !html)) {
