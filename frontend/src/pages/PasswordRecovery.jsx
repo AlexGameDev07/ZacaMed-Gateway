@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './PasswordRecovery.css'; // Archivo CSS para estilos
 
 function PasswordRecovery() {
     const [email, setEmail] = useState('');
@@ -77,42 +78,53 @@ function PasswordRecovery() {
     };
 
     return (
-        <div className="password-recovery-container">
-            <h1>Recuperación de Contraseña</h1>
-            <p>{message}</p>
-            {step === 1 && (
-                <>
-                    <input
-                        type="email"
-                        placeholder="Correo electrónico"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <button onClick={handleRequestCode}>Solicitar Código</button>
-                </>
-            )}
-            {step === 2 && (
-                <>
-                    <input
-                        type="text"
-                        placeholder="Código de verificación"
-                        value={code}
-                        onChange={(e) => setCode(e.target.value)}
-                    />
-                    <button onClick={handleVerifyCode}>Verificar Código</button>
-                </>
-            )}
-            {step === 3 && (
-                <>
-                    <input
-                        type="password"
-                        placeholder="Nueva contraseña"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                    />
-                    <button onClick={handleNewPassword}>Actualizar Contraseña</button>
-                </>
-            )}
+        <div className="password-recovery-page">
+            <div className="password-recovery-container">
+                <h1 className="title">Recuperación de Contraseña</h1>
+                <p className="message">{message}</p>
+                {step === 1 && (
+                    <>
+                        <input
+                            type="email"
+                            placeholder="Correo electrónico"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="input"
+                        />
+                        <button onClick={handleRequestCode} className="button">
+                            Solicitar Código
+                        </button>
+                    </>
+                )}
+                {step === 2 && (
+                    <>
+                        <input
+                            type="text"
+                            placeholder="Código de verificación"
+                            value={code}
+                            onChange={(e) => setCode(e.target.value)}
+                            className="input"
+                        />
+                        <button onClick={handleVerifyCode} className="button">
+                            Verificar Código
+                        </button>
+                    </>
+                )}
+                {step === 3 && (
+                    <>
+                        <input
+                            type="password"
+                            placeholder="Nueva contraseña"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                            className="input"
+                        />
+                        <button onClick={handleNewPassword} className="button">
+                            Actualizar Contraseña
+                        </button>
+                    </>
+                )}
+            </div>
         </div>
     );
 }
